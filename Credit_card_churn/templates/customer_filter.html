@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title> Customer Report </title>
+</head>
+<body>
+	{% csrf_token %}
+	<form action="customers" method="GET" name="Input">
+		Client Num : <input type="text" name="client_num">
+		Attrition Flag : <input type="text" name="attrition_flag">
+		Age : <input type="text" name="age">
+		Gender : <input type="text" name="gender">
+		Dependent Count : <input type="text" name="dependent_count">
+		Education Level : <input type="text" name="education_level">
+		Marital Status : <input type="text" name="marital_status">
+		Income Category : <input type="text" name="income_category">
+		Card Category : <input type="text" name="card_category">
+		Months on book : <input type="text" name="months_on_book">
+		Relation Count : <input type="text" name="relation_count">
+		Months Inactive : <input type="text" name="months_inactive">
+		Contacts Count :<input type="text" name="contacts_count">
+		Credit Limit : <input type="text" name="credit_limit">
+		Revolving Bal : <input type="text" name="revolving_bal">
+		Avg open to buy : <input type="text" name="avg_open_to_buy">
+		Amt Chg : <input type="text" name="amt_chg">
+		Trans Amt : <input type="text" name="trans_amt">
+		Trans Ct : <input type="text" name="trans_ct">
+		Ct Change : <input type="text" name="ct_change">
+		Avg Utilization Ratio : <input type="text" name="avg_utilization_ratio">
+		Naive_bayes_1 : <input type="text" name="naive_bayes_1">
+		Naive_bayes_2 : <input type="text" name="naive_bayes_2">
+		<input type="submit" value="submit">
+	</form>
+	<table class="table">
+		<tr>
+			<td>Client Num</td>
+			<td>Attrition Flag</td>
+			<td>Age</td>
+			<td>Gender</td>
+			<td>Dependent Count</td>
+			<td>Education Level</td>
+			<td>Marital Status</td>
+			<td>Income Category</td>
+			<td>Card Category</td>
+			<td>Months on book</td>
+			<td>Relation Count</td>
+			<td>Months Inactive</td>
+			<td>Contacts Count</td>
+			<td>Credit Limit</td>
+			<td>Revolving Bal</td>
+			<td>Avg open to buy</td>
+			<td>Amt Chg</td>
+			<td>Trans Amt</td>
+			<td>Trans Ct</td>
+			<td>Ct Change</td>
+			<td>Avg Utilization Ratio</td>
+			<td>Naive_bayes_1</td>
+			<td>Naive_bayes_2</td>
+	    </tr>
+		{% for customer in page_obj %}
+	            	<tr>
+	                <td><strong>{{customer.client_num}}</strong></td>
+	                <td>{{customer.attrition_flag}}</td>
+	                <td>{{customer.age}}</td>
+	                <td>{{customer.gender}}</td>
+	                <td>{{customer.dependent_count}}</td>
+	                <td>{{customer.education_level}}</td>
+	                <td>{{customer.marital_status}}</td>
+	                <td>{{customer.income_category}}</td>
+	                <td>{{customer.card_category}}</td>
+	                <td>{{customer.months_on_book}}</td>
+	                <td>{{customer.relation_count}}</td>
+	                <td>{{customer.months_inactive}}</td>
+	                <td>{{customer.contacts_count}}</td>
+	                <td>{{customer.credit_limit}}</td>
+	                <td>{{customer.revolving_bal}}</td>
+	                <td>{{customer.avg_open_to_buy}}</td>
+	                <td>{{customer.amt_chg}}</td>
+	                <td>{{customer.trans_amt}}</td>
+	                <td>{{customer.trans_ct}}</td>
+	                <td>{{customer.ct_change}}</td>
+	                <td>{{customer.avg_utilization_ratio}}</td>
+	                <td>{{customer.naive_bayes_1}}</td>
+	                <td>{{customer.naive_bayes_2}}</td>
+	            </tr>
+	            </div>
+		{% endfor %}
+	</table>
+	<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+</body>
+</html>
