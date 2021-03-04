@@ -2,64 +2,107 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title> Customer Report </title>
+	<title> 
+		Customer Report 
+	</title>
+	<style>
+		input[type=text], select, textarea{
+		  width: 100%;
+		  padding: 12px;
+		  border: 1px solid #ccc;
+		  border-radius: 4px;
+		  box-sizing: border-box;
+		  resize: vertical;
+		}
+
+		label {
+		  padding: 12px 12px 12px 0;
+		  display: inline-block;
+		}
+		h1 {
+		    text-align:center;
+		    background-color: yellow;
+		}
+
+		input[type=submit] {
+		  background-color: #4CAF50;
+		  color: white;
+		  padding: 12px 20px;
+		  border: none;
+		  border-radius: 4px;
+		  cursor: pointer;
+		  float: right;
+		}
+
+		.container {
+		  border-radius: 5px;
+		  background-color: #f2f2f2;
+		  padding: 20px;
+		}
+
+		.pagination{
+			background-color: yellow;
+		}
+
+		.col-25 {
+		  float: left;
+		  width: 25%;
+		  margin-top: 6px;
+		}
+
+		.row:after {
+		  content: "";
+		  display: table;
+		  clear: both;
+		}
+
+		@media screen and (max-width: 600px) {
+		  .col-25, input[type=submit] {
+		    width: 100%;
+		    margin-top: 0;
+		  }
+		}
+	</style>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
 	{% csrf_token %}
-	<form action="customers" method="GET" name="Input">
-		Client Num : <input type="text" name="client_num">
-		Attrition Flag : <input type="text" name="attrition_flag">
-		Age : <input type="text" name="age">
-		Gender : <input type="text" name="gender">
-		Dependent Count : <input type="text" name="dependent_count">
-		Education Level : <input type="text" name="education_level">
-		Marital Status : <input type="text" name="marital_status">
-		Income Category : <input type="text" name="income_category">
-		Card Category : <input type="text" name="card_category">
-		Months on book : <input type="text" name="months_on_book">
-		Relation Count : <input type="text" name="relation_count">
-		Months Inactive : <input type="text" name="months_inactive">
-		Contacts Count :<input type="text" name="contacts_count">
-		Credit Limit : <input type="text" name="credit_limit">
-		Revolving Bal : <input type="text" name="revolving_bal">
-		Avg open to buy : <input type="text" name="avg_open_to_buy">
-		Amt Chg : <input type="text" name="amt_chg">
-		Trans Amt : <input type="text" name="trans_amt">
-		Trans Ct : <input type="text" name="trans_ct">
-		Ct Change : <input type="text" name="ct_change">
-		Avg Utilization Ratio : <input type="text" name="avg_utilization_ratio">
-		Naive_bayes_1 : <input type="text" name="naive_bayes_1">
-		Naive_bayes_2 : <input type="text" name="naive_bayes_2">
-		<input type="submit" value="submit">
-	</form>
-	<table class="table">
-		<tr>
-			<td>Client Num</td>
-			<td>Attrition Flag</td>
-			<td>Age</td>
-			<td>Gender</td>
-			<td>Dependent Count</td>
-			<td>Education Level</td>
-			<td>Marital Status</td>
-			<td>Income Category</td>
-			<td>Card Category</td>
-			<td>Months on book</td>
-			<td>Relation Count</td>
-			<td>Months Inactive</td>
-			<td>Contacts Count</td>
-			<td>Credit Limit</td>
-			<td>Revolving Bal</td>
-			<td>Avg open to buy</td>
-			<td>Amt Chg</td>
-			<td>Trans Amt</td>
-			<td>Trans Ct</td>
-			<td>Ct Change</td>
-			<td>Avg Utilization Ratio</td>
-			<td>Naive_bayes_1</td>
-			<td>Naive_bayes_2</td>
-	    </tr>
+	{% load my_tags %}
+	<h1> Customer Report</h1>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>Client Num</th>
+				<th>Attrition Flag</th>
+				<th>Age</th>
+				<th>Gender</th>
+				<th>Dependent Count</th>
+				<th>Education Level</th>
+				<th>Marital Status</th>
+				<th>Income Category</th>
+				<th>Card Category</th>
+				<th>Months on book</th>
+				<th>Relation Count</th>
+				<th>Months Inactive</th>
+				<th>Contacts Count</th>
+				<th>Credit Limit</th>
+				<th>Revolving Bal</th>
+				<th>Avg open to buy</th>
+				<th>Amt Chg</th>
+				<th>Trans Amt</th>
+				<th>Trans Ct</th>
+				<th>Ct Change</th>
+				<th>Avg Utilization Ratio</th>
+				<th>Naive_bayes_1</th>
+				<th>Naive_bayes_2</th>
+		    </tr>
+		</thead>
 		{% for customer in page_obj %}
-	            	<tr>
+		<tbody>
+	        <tr>
 	                <td><strong>{{customer.client_num}}</strong></td>
 	                <td>{{customer.attrition_flag}}</td>
 	                <td>{{customer.age}}</td>
@@ -83,26 +126,125 @@
 	                <td>{{customer.avg_utilization_ratio}}</td>
 	                <td>{{customer.naive_bayes_1}}</td>
 	                <td>{{customer.naive_bayes_2}}</td>
-	            </tr>
-	            </div>
+	        </tr>
+	    </tbody>
 		{% endfor %}
 	</table>
+	<br>
 	<div class="pagination">
-    <span class="step-links">
-        {% if page_obj.has_previous %}
-            <a href="?page=1">&laquo; first</a>
-            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
-        {% endif %}
+	    <span class="step-links">
+		        {% if page_obj.has_previous %}
+		            <a href="?{% param_replace page=1 %}">&laquo; first</a>
+		            <a href="?{% param_replace page=page_obj.previous_page_number %}">previous</a>
+		        {% endif %}
 
-        <span class="current">
-            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-        </span>
+		        <span class="current">
+		            Page: {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+		        </span>
 
-        {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}">next</a>
-            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
-        {% endif %}
-    </span>
-</div>
+		        {% if page_obj.has_next %}
+		            <a href="?{% param_replace page=page_obj.next_page_number %}">next</a>
+		            <a href="?{% param_replace page=page_obj.paginator.num_pages %}">last &raquo;</a>
+		        {% endif %}
+	    </span>
+	</div>
+	<br>
+	<div class="container">
+		<form action="customers" method="GET" name="Input">
+					<label for="client_num">
+						Client Num : 
+					</label>
+					<input type="text" name="client_num">
+					<label for="attrition_flag">
+						Attrition Flag : 
+					</label>
+					<input type="text" name="attrition_flag">
+					<label for="age">
+						Age : 
+					</label>
+      				<input type="text" name="age">
+	      			<label for="gender">
+						Gender : 
+					</label>
+					<input type="text" name="gender">
+	      			<label for="dependent_count">
+						Dependent Count :
+					</label>
+					<input type="text" name="dependent_count">
+	      			<label for="education_level">
+						Education Level :
+					</label>
+					<input type="text" name="education_level">
+	      			<label for="marital_status">
+						Marital Status :
+					</label>
+					<input type="text" name="marital_status">
+	      			<label for="income_category">
+						Income Category :
+					</label>
+					<input type="text" name="income_category">
+	      			<label for="card_category">
+						Card Category :
+					</label>
+					<input type="text" name="card_category">
+	      			<label for="months_on_book">
+						Months on book : 
+					</label>
+					<input type="text" name="months_on_book">
+	      			<label for="relation_count">
+						Relation Count : 
+					<input type="text" name="relation_count">
+	      			<label for="months_inactive">
+						Months Inactive :
+					</label>
+					<input type="text" name="months_inactive">
+	      			<label for="contacts_count">
+						Contacts Count :
+					<input type="text" name="contacts_count">
+	      			<label for="credit_limit">
+						Credit Limit : 
+					</label>
+					<input type="text" name="credit_limit">
+	      			<label for="revolving_bal">
+						Revolving Bal : 
+					</label>
+					<input type="text" name="revolving_bal">
+	      			<label for="avg_open_to_buy">
+						Avg open to buy : 
+					</label>
+					<input type="text" name="avg_open_to_buy">
+	      			<label for="amt_chg">
+						Amt Chg : 
+					</label>
+					<input type="text" name="amt_chg">
+	      			<label for="trans_amt">
+						Trans Amt : 
+					</label>
+					<input type="text" name="trans_amt">
+	      			<label for="trans_ct">
+						Trans Ct :
+					</label>
+					<input type="text" name="trans_ct">
+	      			<label for="ct_change">
+						Ct Change : 
+					</label>
+					<input type="text" name="ct_change">
+	      			<label for="avg_utilization_ratio">
+						Avg Utilization Ratio :
+					</label>
+					<input type="text" name="avg_utilization_ratio">
+	      			<label for="naive_bayes_1">
+						Naive_bayes_1 : 
+					</label>
+					<input type="text" name="naive_bayes_1">
+	      			<label for="naive_bayes_2">
+						Naive_bayes_2 :
+					</label>
+					<input type="text" name="naive_bayes_2">
+      		<div class="row">
+				<input type="submit" value="submit">
+			</div>
+		</form>
+	</div>
 </body>
 </html>

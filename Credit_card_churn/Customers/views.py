@@ -9,6 +9,7 @@ from rest_framework.views import APIView
 import csv, io
 from django.core.paginator import Paginator
 
+
 class ViewCustomerData(APIView):
 	def get(self, request):
 		params = request.GET.dict()
@@ -17,7 +18,7 @@ class ViewCustomerData(APIView):
 			if params[key] and key != 'page':
 				param[key] = value
 		customers = Customer.objects.filter(**param)
-		paginator = Paginator(customers, 15)
+		paginator = Paginator(customers, 5)
 		page_number = request.GET.get('page')
 		page_obj = paginator.get_page(page_number)
 		return render(
